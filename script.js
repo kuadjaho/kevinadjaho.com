@@ -26,50 +26,11 @@ nav.querySelectorAll('a').forEach(link =>
   })
 );
 
-// --- Compteurs animés ---
-// Séparateur décimal selon la langue de la page (fr : virgule, en : point)
-const DEC_SEP = document.documentElement.lang.startsWith('en') ? '.' : ',';
+// --- Chiffres clés ---
+// Les valeurs sont écrites en dur dans le HTML, sans compteur animé : robots,
+// captures d'écran et lecteurs pressés voient toujours les vrais chiffres.
 
-// Pas d'animation pour les navigateurs automatisés (robots, captures d'écran,
-// outils d'IA) ni pour les visiteurs qui préfèrent moins de mouvement : ils
-// doivent lire la valeur finale tout de suite, jamais un « 0 » intermédiaire.
-const SKIP_COUNT_ANIMATION =
-  navigator.webdriver === true ||
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function animateCount(el) {
-  const target = parseFloat(el.dataset.target);
-  const decimals = parseInt(el.dataset.decimals || '0', 10);
-  const suffix = el.dataset.suffix || '';
-  const numEl = el.querySelector('.stat-num');
-  if (SKIP_COUNT_ANIMATION) {
-    numEl.textContent = target.toFixed(decimals).replace('.', DEC_SEP) + suffix;
-    return;
-  }
-  const duration = 1600;
-  const start = performance.now();
-
-  function tick(now) {
-    const p = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-    const value = (target * eased).toFixed(decimals);
-    numEl.textContent = value.replace('.', DEC_SEP) + suffix;
-    if (p < 1) requestAnimationFrame(tick);
-    else numEl.textContent = target.toFixed(decimals).replace('.', DEC_SEP) + suffix;
-  }
-  requestAnimationFrame(tick);
-}
-
-// --- Observers : stats + reveal ---
-const statObserver = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCount(entry.target);
-      obs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('.stat').forEach(s => statObserver.observe(s));
+// --- Observer : reveal ---
 
 // Éléments à révéler au scroll
 const revealTargets = document.querySelectorAll(
