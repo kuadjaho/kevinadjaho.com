@@ -34,7 +34,7 @@ nav.querySelectorAll('a').forEach(link =>
 
 // Éléments à révéler au scroll
 const revealTargets = document.querySelectorAll(
-  '.section-head, .card, .case-main, .case-side, .tl-item, .edu-col, .contact-text, .contact-form'
+  '.section-head, .card, .proof, .case-main, .case-side, .tl-item, .edu-col, .contact-text, .contact-form'
 );
 revealTargets.forEach((el, i) => {
   el.classList.add('reveal');

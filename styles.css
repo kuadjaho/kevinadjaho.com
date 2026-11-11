@@ -415,6 +415,20 @@ ul, ol { list-style: none; }
 .edu-item h4 { font-family: var(--font-head); font-weight: 600; font-size: 1rem; margin-bottom: 2px; }
 .edu-item p { color: var(--slate-2); font-size: 0.92rem; }
 
+/* ===== Pilotage (preuves) ===== */
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.proof {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px 24px; transition: transform .25s ease, box-shadow .25s ease;
+}
+.proof:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.proof-num {
+  display: block; font-family: var(--font-head); font-weight: 800;
+  font-size: 1.9rem; color: var(--blue-500); line-height: 1; letter-spacing: -0.4px;
+}
+.proof-label { display: block; margin-top: 8px; font-family: var(--font-head); font-weight: 600; font-size: 0.98rem; }
+.proof p { margin-top: 10px; color: var(--slate); font-size: 0.88rem; }
+
 /* ===== Exploitation (run) ===== */
 .run-note { max-width: 760px; margin: 40px auto 0; text-align: center; color: var(--slate); font-size: 1rem; }
 .run-note strong { color: var(--navy-900); }
@@ -478,6 +492,7 @@ a.contact-method:hover { background: rgba(56,189,248,0.12); border-color: rgba(5
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
+  .proof-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero-portrait { order: -1; justify-self: start; max-width: 260px; }
   .portrait-badge { left: auto; right: -10px; }
@@ -489,6 +504,7 @@ a.contact-method:hover { background: rgba(56,189,248,0.12); border-color: rgba(5
   .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
 }
 @media (max-width: 760px) {
+  .proof-grid { grid-template-columns: 1fr; }
   .nav {
     position: fixed; top: 0; right: 0; height: 100vh; width: min(80vw, 320px);
     flex-direction: column; align-items: flex-start; justify-content: center; gap: 28px;
