@@ -30,11 +30,22 @@ nav.querySelectorAll('a').forEach(link =>
 // Séparateur décimal selon la langue de la page (fr : virgule, en : point)
 const DEC_SEP = document.documentElement.lang.startsWith('en') ? '.' : ',';
 
+// Pas d'animation pour les navigateurs automatisés (robots, captures d'écran,
+// outils d'IA) ni pour les visiteurs qui préfèrent moins de mouvement : ils
+// doivent lire la valeur finale tout de suite, jamais un « 0 » intermédiaire.
+const SKIP_COUNT_ANIMATION =
+  navigator.webdriver === true ||
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 function animateCount(el) {
   const target = parseFloat(el.dataset.target);
   const decimals = parseInt(el.dataset.decimals || '0', 10);
   const suffix = el.dataset.suffix || '';
   const numEl = el.querySelector('.stat-num');
+  if (SKIP_COUNT_ANIMATION) {
+    numEl.textContent = target.toFixed(decimals).replace('.', DEC_SEP) + suffix;
+    return;
+  }
   const duration = 1600;
   const start = performance.now();
 
