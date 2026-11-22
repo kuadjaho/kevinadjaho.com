@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Config locale d'aperçu (non nécessaire au site)
+.claude/
+
+# Fichiers source non utilisés par le site
+assets/Ulysse.jpeg
+assets/image-*.webp
